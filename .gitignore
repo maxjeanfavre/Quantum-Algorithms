@@ -1,0 +1,12 @@
+# Byte-compiled python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archives
+*.zip
+
+# PyLint, coverage, pytest, etc.
+.pytest_cache/
+.coverage
+htmlcov/
