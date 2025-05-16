@@ -25,9 +25,7 @@ def oracle(
     intermediate flags are uncomputed at the end, leaving only the global flag.
     """
     # --- 1) Compute each constraint flag ---
-    #if isinstance((log2(idx.n)),int):
-    #    cell_validity_circuit(qc, qr, idx, idx.n)
-    
+    cell_validity_circuit(qc, qr, idx, max(idx.n, idx.m))
     row_uniqueness_circuit(qc, qr, idx)
     column_uniqueness_circuit(qc, qr, idx)
 
@@ -44,6 +42,6 @@ def oracle(
     qc.x(global_q)
 
     # --- 3) Uncompute the sub-oracles ---
-    #cell_validity_circuit(qc, qr, idx, idx.n)
+    cell_validity_circuit(qc, qr, idx, max(idx.n, idx.m))
     column_uniqueness_circuit(qc, qr, idx)
     row_uniqueness_circuit(qc, qr, idx)
