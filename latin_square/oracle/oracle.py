@@ -2,12 +2,11 @@ import sys, os
 sys.path.append(os.path.dirname(os.getcwd()))
 
 from qiskit import QuantumCircuit, QuantumRegister
-from utils.helpers import Indexer
+from utils.indexer import Indexer
 from oracle.row_uniqueness import row_uniqueness_circuit
 from oracle.column_uniqueness import column_uniqueness_circuit
 from oracle.cell_validity import cell_validity_circuit
 
-from math import log2
 
 def oracle(
     qc: QuantumCircuit,
@@ -42,6 +41,6 @@ def oracle(
     qc.x(global_q)
 
     # --- 3) Uncompute the sub-oracles ---
-    cell_validity_circuit(qc, qr, idx, max(idx.n, idx.m))
     column_uniqueness_circuit(qc, qr, idx)
     row_uniqueness_circuit(qc, qr, idx)
+    cell_validity_circuit(qc, qr, idx, max(idx.n, idx.m))
