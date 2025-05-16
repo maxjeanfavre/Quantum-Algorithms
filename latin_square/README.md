@@ -27,7 +27,7 @@ The inspiration came from Avery Parkinson’s “Solving Sudoku Using Quantum Co
 We encode the entire grid in a register of qubits by mapping each cell’s value to a binary bit-string. The oracle then flips the phase of those basis states representing grids that satisfy all constraints. By repeating Grover iterations (oracle + diffusion), we amplify the amplitudes of valid solutions and use Qiskit-based simulation to extract and visualize them.
 
 **Key features**:
-- **Flexible oracle generation** for arbitrary *n×m* Latin-square-style constraints  
+- **Flexible grid generation** for arbitrary *n×m* Latin-square-style constraints  
 - **Quantum circuit construction** including parameter calculation and diffusion operator  
 - **End-to-end simulation** with Qiskit, producing solution counts and histograms  
 - **Modular design** separating Grover logic, constraint oracles, and utility routines  
@@ -56,3 +56,76 @@ Within the notebook:
 
 - The notebook includes several **example grids** (with precomputed solution counts) so you can see end-to-end demos without computing the solution count yourself.
 
+
+
+## Project Structure
+
+latin_square/
+├── grover/                   # Grover-search core
+│   ├── algorithm.py          
+│   ├── circuit.py            
+│   ├── params.py                     
+│   └── simulation.py 
+├── oracle/                   # Constraint oracles
+│   ├── cell_validity.py      
+│   ├── row_uniqueness.py     
+│   ├── column_uniqueness.py  
+│   └── oracle.py        
+├── utils/                    # Helper routines
+│   ├── grid.py               
+│   ├── indexer.py            
+│   ├── helpers.py            
+│   └── plotting.py           
+├── tests/                    # Constraint-validation notebooks
+│   ├── test_cell_validity.ipynb
+│   ├── test_row_uniqueness.ipynb
+│   ├── test_column_uniqueness.ipynb
+│   └── test_oracle.ipynb
+├── grover_solver.ipynb       # End-to-end demo notebook
+└── run_grover.py             # Command-line driver
+
+
+
+## Module Reference
+
+- **`grover/`**  
+  Core implementation of Grover’s search:  
+  - `algorithm.py`: Grover iteration logic and oracle integration  
+  - `circuit.py`: Quantum circuit construction (oracle + diffusion)  
+  - `params.py`: Calculation of optimal iteration counts and qubit requirements  
+  - `simulation.py`: Qiskit-based simulator wrappers and result extraction  
+
+  See [`grover/README.md`](grover/README.md) for more details.
+
+- **`oracle/`**  
+  Definition and composition of constraint oracles:  
+  - `cell_validity.py`: Checks that each cell’s value is within the allowed range  
+  - `row_uniqueness.py`: Ensures no duplicate values in any row  
+  - `column_uniqueness.py`: Ensures no duplicate values in any column  
+  - `oracle.py`: Combines sub-oracles into a single phase-flip gate  
+
+  See [`oracle/README.md`](oracle/README.md) for more details.
+
+- **`utils/`**  
+  Helper routines and utilities:  
+  - `grid.py`: Grid validation, conversion, and pretty-printing  
+  - `indexer.py`: Mapping between grid cells and qubit register indices  
+  - `helpers.py`: Ancilla management, adders, comparators, and other low-level ops  
+  - `plotting.py`: Histogram and result visualization helpers  
+
+  See [`utils/README.md`](utils/README.md) for more details.
+
+
+  - **`tests/`**  
+  Notebooks for validating individual components:  
+  - `test_cell_validity.ipynb`, `test_row_uniqueness.ipynb`, `test_column_uniqueness.ipynb`, `test_oracle.ipynb`  
+  Use these to verify each oracle and utility behaves as expected.
+
+
+
+## Limitations & Future Work
+
+- **Simulator limits**: Qiskit’s classical simulator can handle registers of ≲25 qubits, which restricts us to testing grids up to about **3×2**.  
+- **Automating solution‐count estimation**: Currently you must enter the number of solutions by hand; future versions could derive this automatically (e.g., via classical preprocessing or adaptive Grover).  
+- **Real-device execution**: Once quantum hardware scales beyond ~30-qubit low-noise devices, we can target real-world runs instead of simulators.  
+- **Extending to other CSPs**: Adapt the oracle framework to partial Sudoku, magic squares, graph coloring, and other constraint-satisfaction problems.  

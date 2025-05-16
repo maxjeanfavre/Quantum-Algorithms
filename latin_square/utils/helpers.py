@@ -4,8 +4,7 @@ Includes ancilla preparation, comparators, and context-manager utilities.
 """
 
 import math
-from typing import List, Iterable, Sequence, Optional, Tuple, ContextManager
-from contextlib import contextmanager
+from typing import List, Iterable, Sequence, Optional, Tuple
 
 from qiskit import QuantumCircuit, QuantumRegister
 from qiskit.circuit import Qubit
