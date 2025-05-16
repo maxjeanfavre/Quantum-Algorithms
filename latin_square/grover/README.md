@@ -27,7 +27,7 @@ The `grover/` package implements Grover’s search algorithm specialized for fin
   - `total_possibilities`  
     Computes the search-space size.  
   - `optimal_grover_iterations`  
-    Returns the optimal number of iterations \(r\) given search size \(N\) and known solution count \(M\).
+    Returns the optimal number of iterations $r$ given search size $N$ and known solution count $M$.
 
 - **`simulation.py`**  
   - `simulate_counts`  
