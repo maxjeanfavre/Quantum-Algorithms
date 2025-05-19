@@ -61,7 +61,6 @@ Within the notebook:
 ## Project Structure
 
 ```plaintext
-
 latin_square/
 ├── grover/                   # Grover-search core
 │   ├── algorithm.py          
@@ -85,8 +84,7 @@ latin_square/
 │   └── test_oracle.ipynb
 ├── grover_solver.ipynb       # End-to-end demo notebook
 └── run_grover.py             # Command-line driver
-
-```plaintext
+```
 
 
 
