@@ -63,6 +63,14 @@ QAOA_IBM_tutorial/        # QAOA Max-Cut notebook
 
 ---
 
+## Simulation Environment
+
+All notebooks in this repository are designed to run on quantum emulators (noiseless simulators) rather than actual quantum hardware.  
+This choice reflects both the theoretical focus of the work and the current limitations in universal access to large-scale quantum computers.  
+All implementations use Qiskit's high-performance simulation backends (`qiskit-aer`), ensuring reproducible results and allowing exploration of quantum algorithms beyond the constraints of present-day hardware noise and limited qubit counts.
+
+---
+
 
 ## Requirements
 
