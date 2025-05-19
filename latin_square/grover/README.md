@@ -7,7 +7,7 @@ The `grover/` package implements Grover’s search algorithm specialized for fin
 ## Key Components
 
 - **`circuit.py`**  
-  - `create_circuit(grid: List[List[int]]) → (QuantumCircuit, QuantumRegister, Indexer)`  
+  - `create_circuit`  
     Builds a `QuantumCircuit` for a partially filled grid:  
     1. Computes grid dimensions and bit-width per cell.  
     2. Validates pre-filled values with `verify_grid`.  

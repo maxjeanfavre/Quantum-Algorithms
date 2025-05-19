@@ -1,4 +1,4 @@
-# utils module
+# Utils Module
 
 ## Purpose & Overview
 
@@ -48,7 +48,6 @@ These utilities support the `grover/` and `oracle/` packages by handling common 
     Uses a CDKM ripple-carry adder to flip `target` if a `k`-qubit register ≥ `n`.  
   - `comparator_equal`  
     Flips `target` if two `k`-qubit registers are equal, using bitwise XNOR and an `mcx`.  
-  - Context managers and other low-level gates for building custom oracles.
 
 - **`plotting.py`**  
   - `plot_grid_counts_histogram`  

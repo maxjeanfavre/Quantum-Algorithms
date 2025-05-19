@@ -10,7 +10,7 @@ A quantum-enhanced approach to finding Latin squares using Grover’s search alg
 2. [Usage](#usage)  
 3. [Project Structure](#project-structure)  
 4. [Module Reference](#module-reference)  
-5. [Testing](#testing)  
+5. [Limitations & Future Work](#limitations)  
 
 
 ---
@@ -19,7 +19,7 @@ A quantum-enhanced approach to finding Latin squares using Grover’s search alg
 
 A *Latin square* of order *N* is an *N×N* grid filled with the numbers 1 through *N* such that each number appears exactly once in each row and each column. This project demonstrates a concrete application of **Grover’s quantum search algorithm** to find valid Latin squares (and, more generally, *N×M* rectangular grids with the same uniqueness constraints).
 
-The inspiration came from Avery Parkinson’s “Solving Sudoku Using Quantum Computing” example, which applies Grover’s algorithm to the Sudoku problem. Here, we generalize that idea: instead of fixing a classic 9×9 Sudoku, our code generates a flexible **oracle gate** for any *n×m* grid. That oracle marks assignments satisfying three key constraints:
+The idea was first to solve a problem using Grover's algorithm for a problem where we do not give the solution explicity. Unlike common textbook examples (such as finding a specific $n$ where $n=6$), where the solution is explicitly defined, here the set of solutions emerges from the problem’s constraints and must be verified by the oracle. The inspiration came from Avery Parkinson’s “Solving Sudoku Using Quantum Computing” example, which applies Grover’s algorithm to the Sudoku problem. Here, we generalize that idea: instead of fixing a classic 9×9 Sudoku, our code generates a flexible **oracle gate** for any *n×m* grid. That oracle marks assignments satisfying three key constraints:
 1. **Cell validity** – each cell’s value lies in the allowed range.  
 2. **Row uniqueness** – no duplicate values in any row.  
 3. **Column uniqueness** – no duplicate values in any column.  
@@ -35,7 +35,7 @@ We encode the entire grid in a register of qubits by mapping each cell’s value
 This approach both illustrates the power of quantum search in combinatorial problems and provides a reusable framework for exploring similar constraint-satisfaction tasks on near-term quantum hardware.
 
 
-## Usage - Interactive Notebook
+## Usage
 
 Open and execute the `grover_solver.ipynb` notebook in JupyterLab or Jupyter Notebook.
 
@@ -59,6 +59,8 @@ Within the notebook:
 
 
 ## Project Structure
+
+```plaintext
 
 latin_square/
 ├── grover/                   # Grover-search core
@@ -84,6 +86,9 @@ latin_square/
 ├── grover_solver.ipynb       # End-to-end demo notebook
 └── run_grover.py             # Command-line driver
 
+```plaintext
+
+
 
 
 ## Module Reference
@@ -91,7 +96,7 @@ latin_square/
 - **`grover/`**  
   Core implementation of Grover’s search:  
   - `algorithm.py`: Grover iteration logic and oracle integration  
-  - `circuit.py`: Quantum circuit construction (oracle + diffusion)  
+  - `circuit.py`: Quantum circuit construction and grid initialization  
   - `params.py`: Calculation of optimal iteration counts and qubit requirements  
   - `simulation.py`: Qiskit-based simulator wrappers and result extraction  
 
@@ -109,8 +114,8 @@ latin_square/
 - **`utils/`**  
   Helper routines and utilities:  
   - `grid.py`: Grid validation, conversion, and pretty-printing  
-  - `indexer.py`: Mapping between grid cells and qubit register indices  
-  - `helpers.py`: Ancilla management, adders, comparators, and other low-level ops  
+  - `indexer.py`: Mapping between grid cells and qubit register indices, ancilla management  
+  - `helpers.py`: Comparators, and other low-level ops  
   - `plotting.py`: Histogram and result visualization helpers  
 
   See [`utils/README.md`](utils/README.md) for more details.
@@ -125,7 +130,15 @@ latin_square/
 
 ## Limitations & Future Work
 
-- **Simulator limits**: Qiskit’s classical simulator can handle registers of ≲25 qubits, which restricts us to testing grids up to about **3×2**.  
-- **Automating solution‐count estimation**: Currently you must enter the number of solutions by hand; future versions could derive this automatically (e.g., via classical preprocessing or adaptive Grover).  
-- **Real-device execution**: Once quantum hardware scales beyond ~30-qubit low-noise devices, we can target real-world runs instead of simulators.  
-- **Extending to other CSPs**: Adapt the oracle framework to partial Sudoku, magic squares, graph coloring, and other constraint-satisfaction problems.  
+- **Simulator limits**:  
+  Qiskit’s classical simulators can handle quantum registers of up to around 25 qubits, which restricts us to testing small grids—typically up to about **3×2**. To make the most of available resources, we have designed the circuits to minimize the number of qubits used, even if this sometimes increases circuit depth.
+
+- **Automating solution-count estimation**:  
+  At present, the number of valid solutions must be provided manually. In future versions, we might automate this step, either via classical preprocessing or by using adaptive Grover search techniques.
+
+- **Real-device execution**:  
+  Currently, the circuits are not suitable for real quantum devices due to noise and limited qubit counts. As hardware improves (with ~30 or more low-noise qubits), we plan to adapt the implementation for real-device runs. In particular, we may revisit the tradeoff between ancilla count and circuit depth—allocating more ancillas could reduce depth and help mitigate noise.
+
+- **Extending to other CSPs**:  
+  The oracle framework can be extended to support a broader class of constraint-satisfaction problems (CSPs), such as partial Sudoku, magic squares, or graph coloring. This can be achieved by adding new circuits that check additional constraints and produce flag qubits, which are then incorporated into the global constraint flag.
+

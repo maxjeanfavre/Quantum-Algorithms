@@ -1,4 +1,4 @@
-# Oracle module
+# Oracle Module
 
 ## Purpose & Role
 
@@ -6,10 +6,10 @@ The `oracle/` package defines the phase‐inversion “black box” that identif
 
 ## Row and Column Uniqueness (`row_uniqueness.py` and `column_uniqueness.py`)
 
-WWe take row uniqueness as example, however, it's the same for column. To enforce that no two cells in the same row contain the same value, we process each row independently:
+We take row uniqueness as example, however, the same approach applies for column. To enforce that no two cells in the same row contain the same value, we process each row independently:
 
 1. **Pairwise comparisons**  
-   - In a row of length *m*, there are $\tfrac{m(m-1)}{2}$ unique pairs of cells.  
+   - In a row of *m* cells, there are $\tfrac{m(m-1)}{2}$ unique pairs of cells.  
    - For each pair $(c_1, c_2)$, we use `comparator_equal` on their *k*-qubit registers.  
    - If the two *k*-bit values are equal, the comparator flips a dedicated “pair‐flag” qubit for that pair.
 
@@ -36,7 +36,7 @@ For example, a $3\times 2$ grid has $\max(3,2)=3$ symbols $\{0,1,2\}$. We need $
 The cell‐validity oracle ensures every filled cell holds a value within the allowed range $[0,\,\text{max(n,m)}-1]$. It works as follows:
 
 1. **Prepare threshold ancillas**  
-   - Compute the constant $(2^k - \text{symbol\_max})$ in $k$ ancilla qubits (one bit per qubit) using `prepare_ancilla_cell_validity`.  
+   - Compute the constant $(2^k - \max(n,m))$ in $k$ ancilla qubits (one bit per qubit) using `prepare_ancilla_cell_validity`.  
    - These ancillas encode the comparator’s “minus threshold” constant.
 
 2. **Per‐cell comparison**  
@@ -50,8 +50,8 @@ The cell‐validity oracle ensures every filled cell holds a value within the al
    - This single flag now represents “the grid has at least one out‐of‐range cell.”
 
 4. **Uncompute and cleanup**  
-   - Reverse all `comparator_less` calls on every cell to reset the individual cell‐flag qubits and restore ancillas to $\lvert0\rangle$.
-   - Reverse the initial threshold preparation to return those ancillas to $\lvert0\rangle$.
+   - Reverse all `comparator_less` calls on every cell to reset the individual cell‐flag qubits and restore ancillas to $\ket{0}$.
+   - Reverse the initial threshold preparation to return those ancillas to $\ket{0}$.
    - At the end, only the single `cell_valid_flag` may remain set, with all other ancillas and intermediate flags clean.
 
 Column and row‐validity follow the same compute–aggregate–uncompute pattern, but since symbol range is global, cell‐validity only needs one level of aggregation.
