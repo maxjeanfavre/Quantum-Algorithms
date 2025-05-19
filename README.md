@@ -85,6 +85,7 @@ To install the core requirements, run:
 
 ```bash
 pip install qiskit==2.0.0 qiskit-aer==0.17.0 matplotlib==3.10.1 numpy==2.2.5 scipy==1.15.2 rustworkx==0.16.0
+```
 
 ---
 
