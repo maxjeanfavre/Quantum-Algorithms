@@ -17,9 +17,9 @@ A quantum-enhanced approach to finding Latin squares using Grover’s search alg
 
 ## Project Overview
 
-A *Latin square* of order *N* is an *N×N* grid filled with the numbers 1 through *N* such that each number appears exactly once in each row and each column. This project demonstrates a concrete application of **Grover’s quantum search algorithm** to find valid Latin squares (and, more generally, *N×M* rectangular grids with the same uniqueness constraints).
+A *Latin square* of order *N* is an *N*N* grid filled with the numbers 1 through *N* such that each number appears exactly once in each row and each column. This project demonstrates a concrete application of **Grover’s quantum search algorithm** to find valid Latin squares (and, more generally, *N*M* rectangular grids with the same uniqueness constraints).
 
-The idea was first to solve a problem using Grover's algorithm for a problem where we do not give the solution explicity. Unlike common textbook examples (such as finding a specific $n$ where $n=6$), where the solution is explicitly defined, here the set of solutions emerges from the problem’s constraints and must be verified by the oracle. The inspiration came from Avery Parkinson’s “Solving Sudoku Using Quantum Computing” example, which applies Grover’s algorithm to the Sudoku problem. Here, we generalize that idea: instead of fixing a classic 9×9 Sudoku, our code generates a flexible **oracle gate** for any *n×m* grid. That oracle marks assignments satisfying three key constraints:
+The idea was first to solve a problem using Grover's algorithm for a problem where we do not give the solution explicity. Unlike common textbook examples (such as finding a specific $n$ where $n=6$), where the solution is explicitly defined, here the set of solutions emerges from the problem’s constraints and must be verified by the oracle. The inspiration came from Avery Parkinson’s “Solving Sudoku Using Quantum Computing” example, which applies Grover’s algorithm to the Sudoku problem. Here, we generalize that idea: instead of fixing a classic 9*9 Sudoku, our code generates a flexible **oracle gate** for any *n*m* grid. That oracle marks assignments satisfying three key constraints:
 1. **Cell validity** – each cell’s value lies in the allowed range.  
 2. **Row uniqueness** – no duplicate values in any row.  
 3. **Column uniqueness** – no duplicate values in any column.  
@@ -27,7 +27,7 @@ The idea was first to solve a problem using Grover's algorithm for a problem whe
 We encode the entire grid in a register of qubits by mapping each cell’s value to a binary bit-string. The oracle then flips the phase of those basis states representing grids that satisfy all constraints. By repeating Grover iterations (oracle + diffusion), we amplify the amplitudes of valid solutions and use Qiskit-based simulation to extract and visualize them.
 
 **Key features**:
-- **Flexible grid generation** for arbitrary *n×m* Latin-square-style constraints  
+- **Flexible grid generation** for arbitrary *n*m* Latin-square-style constraints  
 - **Quantum circuit construction** including parameter calculation and diffusion operator  
 - **End-to-end simulation** with Qiskit, producing solution counts and histograms  
 - **Modular design** separating Grover logic, constraint oracles, and utility routines  
@@ -42,7 +42,7 @@ Open and execute the `grover_solver.ipynb` notebook in JupyterLab or Jupyter Not
 Within the notebook:
 
 - **Grid definition**
-  - Specify the dimensions *n×m*.
+  - Specify the dimensions *n*m*.
   - Optionally prefill some cells (leave blank cells as variables to solve).
 
 - **Number of solutions**
@@ -131,7 +131,7 @@ latin_square/
 ## Limitations & Future Work
 
 - **Simulator limits**:  
-  Qiskit’s classical simulators can handle quantum registers of up to around 25 qubits, which restricts us to testing small grids—typically up to about **3×2**. To make the most of available resources, we have designed the circuits to minimize the number of qubits used, even if this sometimes increases circuit depth.
+  Qiskit’s classical simulators can handle quantum registers of up to around 25 qubits, which restricts us to testing small grids—typically up to about **3*2**. To make the most of available resources, we have designed the circuits to minimize the number of qubits used, even if this sometimes increases circuit depth.
 
 - **Automating solution-count estimation**:  
   At present, the number of valid solutions must be provided manually. In future versions, we might automate this step, either via classical preprocessing or by using adaptive Grover search techniques.

@@ -1,7 +1,7 @@
 """
 indexer.py
 
-Provides the Indexer class for flat-index management of an n×m grid
+Provides the Indexer class for flat-index management of an n*m grid
 encoded into qubits, plus ancilla tracking and convenience methods.
 """
 
@@ -14,7 +14,7 @@ from qiskit import QuantumCircuit
 class Indexer:
     """
     Manages qubit indices for:
-      • data region: n·m cells × k bits each
+      • data region: n·m cells * k bits each
       • row-, col-, cell-validity, and global flags
       • a pool of ancilla qubits
     """
@@ -26,7 +26,7 @@ class Indexer:
         """
         Parameters
         ----------
-        grid : rows×cols array of
+        grid : rows*cols array of
             None        (empty cell)
             integer     (fixed symbol in [0..max(n,m)-1])
         num_anc : int, optional

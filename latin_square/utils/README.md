@@ -32,7 +32,7 @@ These utilities support the `grover/` and `oracle/` packages by handling common 
     Convert any flat qubit index into a human-readable label (e.g. `data(2,1,0)`, `row_flag`, `ancilla(4)`), making circuit diagrams and error messages clearer.
 
   - **Scale automatically**:  
-    Adapts to any *n×m* grid size by calculating bit-width, total qubit count, and all required offsets under the hood.
+    Adapts to any *n*m* grid size by calculating bit-width, total qubit count, and all required offsets under the hood.
 
 
 - **`grid.py`**  

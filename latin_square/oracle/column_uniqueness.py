@@ -25,7 +25,7 @@ def column_pair_flags(
 
     Parameters:
         qc:     The QuantumCircuit to modify.
-        data:   QuantumRegister holding the grid data (n × m × k qubits).
+        data:   QuantumRegister holding the grid data (n * m * k qubits).
         anc:    QuantumRegister providing k scratch qubits for XNOR operations.
         flag1:  QuantumRegister of length n for per-row OR results.
         flag2:  QuantumRegister of length n-1 for per-pair equality flags.

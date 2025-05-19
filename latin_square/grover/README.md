@@ -2,7 +2,7 @@
 
 ## Purpose & Scope
 
-The `grover/` package implements Grover’s search algorithm specialized for finding *n×m* Latin‐square‐style solutions. It provides functions to build and initialize the quantum circuit, append Grover iterations (oracle + diffuser), calculate iteration parameters, and simulate on Qiskit backends.
+The `grover/` package implements Grover’s search algorithm specialized for finding *n*m* Latin‐square‐style solutions. It provides functions to build and initialize the quantum circuit, append Grover iterations (oracle + diffuser), calculate iteration parameters, and simulate on Qiskit backends.
 
 ## Key Components
 
